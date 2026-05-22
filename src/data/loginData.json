@@ -1,0 +1,11 @@
+{
+  "UsuarioValido": {
+    "usuario":  "demo",
+    "password": "demo123"
+  },
+  "casosDeError": [
+    { "caso": "Clave incorrecta", "usuario": "admin", "password": "error123" },
+    { "caso": "Usuario vacío", "usuario": "", "password": "demo" }
+  ]
+
+}

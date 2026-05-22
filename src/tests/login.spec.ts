@@ -1,18 +1,33 @@
 import { test, expect } from '@playwright/test';
 import { LoginSteps } from "../steps/LoginSteps";
 import { MenuPrincipalSteps } from '../steps/MenuPrincipalSteps';
+import {UsuarioValido,casosDeError} from '../data/loginData.json';
+import 'dotenv/config'
 
+const url = process.env.URL_BANKING ?? ''
+//const user = process.env.USER?? ''
+//const pass = process.env.PASS ?? ''
+
+test.describe('Módulo de Pruebas: Autenticación de Usuarios', () => {
 test('Login Exitoso', async ({ page }) => {
     const loginSteps = new LoginSteps(page);
-    await loginSteps.navegarWeb("https://homebanking-demo-tests.netlify.app/");
-    await loginSteps.IniciarSesion("demo", "demo123");
-    await page.waitForURL('**/dashboard');
+    await loginSteps.navegarWeb(url);
+    await loginSteps.IniciarSesion(UsuarioValido.usuario,UsuarioValido.password);
     const menuPrincipalSteps = new MenuPrincipalSteps(page);
     await menuPrincipalSteps.ValidarMenuPrincipal();
-    
+    await loginSteps.waitFor(10000);
     
 })
 
+for (const caso of casosDeError) {
+    test(`Login fallido - ${caso.caso}`, async ({ page }) => {
+      const loginSteps = new LoginSteps(page);
+
+      await loginSteps.navegarWeb(url);
+      await loginSteps.IniciarSesion(caso.usuario, caso.password);
+    });
+  }
+})
 
 // test('test-login-ok', async ({ page }) => {
 //     await page.goto('https://homebanking-demo-tests.netlify.app/');

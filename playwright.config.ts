@@ -36,9 +36,16 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+    name: 'chromium',
+    use: { 
+      ...devices['Desktop Chrome'],
+      
+      // ¡Aquí adentro va! Pon una coma después de devices y agregas esto:
+      launchOptions: {
+        slowMo: 1500, // Espera 1.5 segundos entre cada paso
+      },
     },
+  },
 
     /*{
       name: 'firefox',

@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+
+    "target": "ES2020",
+    // Versión de JS que genera el compilador.
+    // ES2020 soporta async/await nativo — necesario para Playwright.
+
+    "module": "commonjs",
+    // Sistema de módulos de Node.js. Playwright corre en Node.
+
+    "resolveJsonModule": true,
+    // ★ CLAVE: permite hacer import de archivos .json ★
+    // Sin esto: error "Cannot find module ./loginData.json"
+    // Con esto:  import data from "../data/loginData.json"  ← funciona
+
+    "esModuleInterop": true,
+    // Permite imports limpios: import X from "modulo"
+
+    "strict": true,
+    // Verificaciones estrictas de TypeScript.
+
+    "types": ["@playwright/test", "node"]
+    // Soporte para los métodos de Playwright + los tipos de Node (corrige el error de 'process')
+
+  },
+
+  "include": ["src/**/*.ts", "playwright.config.ts"],
+  // Compila todos los .ts dentro de src/ y el archivo de configuración en la raíz.
+
+  "exclude": ["node_modules", "dist"]
+  // Ignorar estas carpetas.
+}
